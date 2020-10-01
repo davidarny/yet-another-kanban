@@ -22,7 +22,7 @@ namespace server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "note",
+                name: "user_account",
                 columns: table => new
                 {
                     id = table.Column<int>(nullable: false)
@@ -33,7 +33,7 @@ namespace server.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_note", x => x.id);
+                    table.PrimaryKey("PK_user_account", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -74,9 +74,9 @@ namespace server.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_user_x_desk_note_id_user",
+                        name: "FK_user_x_desk_user_account_id_user",
                         column: x => x.id_user,
-                        principalTable: "note",
+                        principalTable: "user_account",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -128,7 +128,7 @@ namespace server.Migrations
                 name: "desk_column");
 
             migrationBuilder.DropTable(
-                name: "note");
+                name: "user_account");
 
             migrationBuilder.DropTable(
                 name: "desk");

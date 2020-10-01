@@ -9,7 +9,7 @@ using server.Context;
 namespace server.Migrations
 {
     [DbContext(typeof(AppContext))]
-    [Migration("20200927131110_initial")]
+    [Migration("20201001195040_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -119,7 +119,7 @@ namespace server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("note");
+                    b.ToTable("user_account");
                 });
 
             modelBuilder.Entity("server.Models.UserHasDesk", b =>

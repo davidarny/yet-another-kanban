@@ -7,12 +7,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace server.Models
 {
-    [Table("note")]
+    [Table("user_account")]
     public partial class User
     {
         public User()
         {
-            UserHasDesk = new HashSet<UserHasDesk>();
+            // UserHasDesk = new HashSet<UserHasDesk>();
         }
 
         [Key]
@@ -35,7 +35,7 @@ namespace server.Models
         [EmailAddress]
         public string Email { get; set; }
 
-        [InverseProperty("User")]
-        public virtual ICollection<UserHasDesk> UserHasDesk { get; set; }
+        // [InverseProperty(nameof(Models.UserHasDesk.User))]
+        // public virtual ICollection<UserHasDesk> UserHasDesk { get; set; }
     }
 }

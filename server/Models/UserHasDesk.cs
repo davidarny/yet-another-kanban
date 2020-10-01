@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace server.Models
 {
@@ -17,11 +18,9 @@ namespace server.Models
         public int IdDesk { get; set; }
 
         [ForeignKey(nameof(IdUser))]
-        [InverseProperty(nameof(Models.User.UserHasDesk))]
         public virtual User User { get; set; }
 
         [ForeignKey(nameof(IdDesk))]
-        [InverseProperty(nameof(Models.Desk.UserHasDesk))]
         public virtual Desk Desk { get; set; }
     }
 }

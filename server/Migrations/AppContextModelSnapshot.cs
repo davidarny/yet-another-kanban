@@ -117,7 +117,7 @@ namespace server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("note");
+                    b.ToTable("user_account");
                 });
 
             modelBuilder.Entity("server.Models.UserHasDesk", b =>

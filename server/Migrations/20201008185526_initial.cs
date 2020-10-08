@@ -13,8 +13,8 @@ namespace server.Migrations
                 {
                     id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    title = table.Column<string>(maxLength: 255, nullable: true),
-                    description = table.Column<string>(maxLength: 1024, nullable: true)
+                    title = table.Column<string>(maxLength: 255, nullable: false),
+                    description = table.Column<string>(maxLength: 1024, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -87,7 +87,9 @@ namespace server.Migrations
                 {
                     id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    id_column = table.Column<int>(nullable: false)
+                    id_column = table.Column<int>(nullable: false),
+                    content = table.Column<string>(maxLength: 1024, nullable: false),
+                    order = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

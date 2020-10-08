@@ -30,8 +30,8 @@ namespace server
             {
                 options.SerializerSettings.ContractResolver = new Models.PatchRequestContractResolver();
             });
-            var connection = Configuration.GetConnectionString("AppDatabase");
-            services.AddDbContext<Context.AppContext>(opt => opt.UseNpgsql(connection));
+            var connection = Configuration.GetConnectionString("YakContext");
+            services.AddDbContext<KanbanContext>(opt => opt.UseNpgsql(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

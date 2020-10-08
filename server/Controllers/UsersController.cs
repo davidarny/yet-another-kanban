@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using server.Context;
 using server.Models;
 
 namespace server.Controllers
@@ -14,9 +13,9 @@ namespace server.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly Context.AppContext _context;
+        private readonly KanbanContext _context;
 
-        public UsersController(Context.AppContext context)
+        public UsersController(KanbanContext context)
         {
             _context = context;
         }

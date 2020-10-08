@@ -12,7 +12,6 @@ namespace server.Models
     {
         public Desk()
         {
-            // UserHasDesk = new HashSet<UserHasDesk>();
             DeskColumns = new HashSet<DeskColumn>();
         }
 
@@ -20,16 +19,15 @@ namespace server.Models
         [Column("id")]
         public int Id { get; set; }
 
+        [Required]
         [Column("title")]
         [StringLength(255)]
         public string Title { get; set; }
 
+        [Required]
         [Column("description")]
         [StringLength(1024)]
         public string Description { get; set; }
-
-        // [InverseProperty(nameof(Models.UserHasDesk.Desk))]
-        // public virtual ICollection<UserHasDesk> UserHasDesk { get; set; }
 
         [InverseProperty(nameof(DeskColumn.Desk))]
         public virtual ICollection<DeskColumn> DeskColumns { get; set; }

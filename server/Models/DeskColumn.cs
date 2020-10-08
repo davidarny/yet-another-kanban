@@ -32,7 +32,7 @@ namespace server.Models
         [InverseProperty(nameof(Models.Desk.DeskColumns))]
         public virtual Desk Desk { get; set; }
 
-        [InverseProperty("DeskColumn")]
+        [InverseProperty(nameof(Card.DeskColumn))]
         public virtual ICollection<Card> Cards { get; set; }
     }
 }

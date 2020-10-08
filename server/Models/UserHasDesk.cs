@@ -11,9 +11,11 @@ namespace server.Models
     [Table("user_x_desk")]
     public partial class UserHasDesk
     {
+        [Required]
         [Column("id_user")]
         public int IdUser { get; set; }
 
+        [Required]
         [Column("id_desk")]
         public int IdDesk { get; set; }
 

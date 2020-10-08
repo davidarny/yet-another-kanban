@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using server.Context;
+using server;
 
 namespace server.Migrations
 {
-    [DbContext(typeof(AppContext))]
-    [Migration("20201001195040_initial")]
+    [DbContext(typeof(KanbanContext))]
+    [Migration("20201008185526_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,8 +28,18 @@ namespace server.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<string>("Context")
+                        .IsRequired()
+                        .HasColumnName("content")
+                        .HasColumnType("character varying(1024)")
+                        .HasMaxLength(1024);
+
                     b.Property<int>("IdColumn")
                         .HasColumnName("id_column")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Order")
+                        .HasColumnName("order")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -48,11 +58,13 @@ namespace server.Migrations
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnName("description")
                         .HasColumnType("character varying(1024)")
                         .HasMaxLength(1024);
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnName("title")
                         .HasColumnType("character varying(255)")
                         .HasMaxLength(255);
@@ -160,13 +172,13 @@ namespace server.Migrations
             modelBuilder.Entity("server.Models.UserHasDesk", b =>
                 {
                     b.HasOne("server.Models.Desk", "Desk")
-                        .WithMany("UserHasDesk")
+                        .WithMany()
                         .HasForeignKey("IdDesk")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("server.Models.User", "User")
-                        .WithMany("UserHasDesk")
+                        .WithMany()
                         .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

@@ -10,32 +10,24 @@ namespace server.Models
     [Table("user_account")]
     public partial class User
     {
-        public User()
-        {
-            // UserHasDesk = new HashSet<UserHasDesk>();
-        }
-
         [Key]
         [Column("id")]
         public int Id { get; set; }
 
+        [Required]
         [Column("login")]
         [StringLength(255)]
-        [Required]
         public string Login { get; set; }
 
+        [Required]
         [Column("password")]
         [StringLength(255)]
-        [Required]
         public string Password { get; set; }
 
+        [Required]
         [Column("email")]
         [StringLength(255)]
-        [Required]
         [EmailAddress]
         public string Email { get; set; }
-
-        // [InverseProperty(nameof(Models.UserHasDesk.User))]
-        // public virtual ICollection<UserHasDesk> UserHasDesk { get; set; }
     }
 }

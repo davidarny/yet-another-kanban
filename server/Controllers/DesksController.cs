@@ -12,9 +12,9 @@ namespace server.Controllers
     [ApiController]
     public class DesksController : ControllerBase
     {
-        private readonly Context.AppContext _context;
+        private readonly KanbanContext _context;
 
-        public DesksController(Context.AppContext context)
+        public DesksController(KanbanContext context)
         {
             _context = context;
         }
@@ -26,7 +26,7 @@ namespace server.Controllers
             var desks = await _context.Desks.ToListAsync();
             var deskIds = desks.Select(o => o.Id).ToArray();
 
-            var deskUsers = await _context.UserDesks
+            var deskUsers = await _context.UserHasDesks
                 .Include(o => o.User)
                 .Where(o => deskIds.Contains(o.IdDesk))
                 .ToListAsync();
@@ -57,7 +57,7 @@ namespace server.Controllers
                 return NotFound();
             }
 
-            var users = await _context.UserDesks
+            var users = await _context.UserHasDesks
                 .Include(o => o.User)
                 .Where(o => desk.Id == o.IdDesk)
                 .Select(o => new UserViewModel { Id = o.User.Id, Email = o.User.Email, Login = o.User.Login })
@@ -129,7 +129,7 @@ namespace server.Controllers
             }
 
             var desk = _context.Desks.Add(new Desk { Title = dto.Title, Description = dto.Description }).Entity;
-            _context.UserDesks.Add(new UserHasDesk { Desk = desk, User = user });
+            _context.UserHasDesks.Add(new UserHasDesk { Desk = desk, User = user });
 
             await _context.SaveChangesAsync();
 

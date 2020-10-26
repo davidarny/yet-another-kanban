@@ -1,18 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using server.DTO;
 
-namespace server.Models
+namespace server
 {
     /// <summary>
     /// Class that plugs in to Newtonsoft deserialization pipeline for classes descending from <see cref="PatchDtoBase"/>.
     /// For all properties, that are present in JSON it calls <see cref="PatchDtoBase.SetHasProperty"/>.`
     /// </summary>
-    public class PatchRequestContractResolver : DefaultContractResolver
+    public class PatchRequestContractResolver : CamelCasePropertyNamesContractResolver
     {
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization serialization)
         {

@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using server.Models;
+using server.ViewModels;
+using server.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +22,9 @@ namespace server.Controllers
             _context = context;
         }
 
-        // GET: api/Desks
+        // GET: api/desks
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<DeskViewModel>>> GetDesks()
         {
             var desks = await _context.Desks.ToListAsync();
@@ -46,8 +50,9 @@ namespace server.Controllers
             return views;
         }
 
-        // GET: api/Desks/5
+        // GET: api/desks/:id
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<DeskViewModel>> GetDesk(int id)
         {
             var desk = await _context.Desks.FindAsync(id);
@@ -68,8 +73,9 @@ namespace server.Controllers
             return view;
         }
 
-        // PATCH: api/Desks/5
+        // PATCH: api/desks/:id
         [HttpPatch("{id}")]
+        [Authorize]
         public async Task<IActionResult> PatchDesk(int id, [FromBody] PatchDeskDTO dto)
         {
             var desk = await _context.Desks.FindAsync(id);
@@ -87,38 +93,9 @@ namespace server.Controllers
             return NoContent();
         }
 
-        // PUT: api/Desks/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutDesk(int id, [FromBody] Desk desk)
-        {
-            if (id != desk.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(desk).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!DeskExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Desks
+        // POST: api/desks
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<DeskViewModel>> PostDesk([FromBody] PostDeskDTO dto)
         {
             var user = await _context.Users.FindAsync(dto.UserId);
@@ -133,13 +110,21 @@ namespace server.Controllers
 
             await _context.SaveChangesAsync();
 
-            var view = new DeskViewModel { Title = desk.Title, Description = desk.Description };
-            return CreatedAtAction(nameof(GetDesk), new { id = desk.Id }, view);
+            var userView = new UserViewModel { Id = user.Id, Email = user.Email, Login = user.Login };
+
+            var deskView = new DeskViewModel {
+                Title = desk.Title,
+                Description = desk.Description,
+                Users = new HashSet<UserViewModel> { userView }
+            };
+
+            return CreatedAtAction(nameof(GetDesk), new { id = desk.Id }, deskView);
         }
 
-        // DELETE: api/Desks/5
+        // DELETE: api/desks/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Desk>> DeleteDesk(int id)
+        [Authorize]
+        public async Task<IActionResult> DeleteDesk(int id)
         {
             var desk = await _context.Desks.FindAsync(id);
             if (desk == null)
@@ -150,7 +135,7 @@ namespace server.Controllers
             _context.Desks.Remove(desk);
             await _context.SaveChangesAsync();
 
-            return desk;
+            return NoContent();
         }
 
         private bool DeskExists(int id)

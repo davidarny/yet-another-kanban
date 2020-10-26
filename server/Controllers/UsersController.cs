@@ -25,8 +25,9 @@ namespace server.Controllers
             _context = context;
         }
 
-        // POST /api/users/token
+        // POST /api/Users/token
         [HttpPost("token")]
+        [Produces("application/json")]
         public async Task<ActionResult<object>> Token(CreateTokenDTO dto)
         {
             var (user, identity) = (await GetIdentity(dto.Username, dto.Password)).GetValueOrDefault();
@@ -76,9 +77,10 @@ namespace server.Controllers
             return null;
         }
 
-        // GET: api/users
+        // GET: api/Users
         [HttpGet]
         [Authorize]
+        [Produces("application/json")]
         public async Task<ActionResult<IEnumerable<UserViewModel>>> GetUsers()
         {
             return await _context.Users
@@ -86,8 +88,9 @@ namespace server.Controllers
                 .ToListAsync();
         }
 
-        // GET: api/users/:id
+        // GET: api/Users/:id
         [HttpGet("{id}")]
+        [Produces("application/json")]
         public async Task<ActionResult<UserViewModel>> GetUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
@@ -100,9 +103,10 @@ namespace server.Controllers
             return new UserViewModel { Id = user.Id, Email = user.Email, Login = user.Login };
         }
 
-        // PUT api/users/:id
+        // PUT api/Users/:id
         [HttpPatch("{id}")]
         [Authorize]
+        [Produces("application/json")]
         public async Task<IActionResult> PatchUser(int id, [FromBody] PatchUserDTO dto)
         {
             var user = await _context.Users.FindAsync(id);
@@ -119,8 +123,9 @@ namespace server.Controllers
             return NoContent();
         }
 
-        // POST: api/users/register
+        // POST: api/Users/register
         [HttpPost("register")]
+        [Produces("application/json")]
         public async Task<ActionResult<UserViewModel>> PostUser([FromBody] User user)
         {
             _context.Users.Add(user);
@@ -130,9 +135,10 @@ namespace server.Controllers
         }
 
 
-        // DELETE: api/users/:id
+        // DELETE: api/Users/:id
         [HttpDelete("{id}")]
         [Authorize]
+        [Produces("application/json")]
         public async Task<IActionResult> DeleteUser(int id)
         {
             var user = await _context.Users.FindAsync(id);

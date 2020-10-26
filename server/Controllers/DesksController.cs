@@ -22,9 +22,10 @@ namespace server.Controllers
             _context = context;
         }
 
-        // GET: api/desks
+        // GET: api/Desks
         [HttpGet]
         [Authorize]
+        [Produces("application/json")]
         public async Task<ActionResult<IEnumerable<DeskViewModel>>> GetDesks()
         {
             var desks = await _context.Desks.ToListAsync();
@@ -50,9 +51,10 @@ namespace server.Controllers
             return views;
         }
 
-        // GET: api/desks/:id
+        // GET: api/Desks/:id
         [HttpGet("{id}")]
         [Authorize]
+        [Produces("application/json")]
         public async Task<ActionResult<DeskViewModel>> GetDesk(int id)
         {
             var desk = await _context.Desks.FindAsync(id);
@@ -73,9 +75,10 @@ namespace server.Controllers
             return view;
         }
 
-        // PATCH: api/desks/:id
+        // PATCH: api/Desks/:id
         [HttpPatch("{id}")]
         [Authorize]
+        [Produces("application/json")]
         public async Task<IActionResult> PatchDesk(int id, [FromBody] PatchDeskDTO dto)
         {
             var desk = await _context.Desks.FindAsync(id);
@@ -93,9 +96,10 @@ namespace server.Controllers
             return NoContent();
         }
 
-        // POST: api/desks
+        // POST: api/Desks
         [HttpPost]
         [Authorize]
+        [Produces("application/json")]
         public async Task<ActionResult<DeskViewModel>> PostDesk([FromBody] PostDeskDTO dto)
         {
             var user = await _context.Users.FindAsync(dto.UserId);
@@ -121,9 +125,10 @@ namespace server.Controllers
             return CreatedAtAction(nameof(GetDesk), new { id = desk.Id }, deskView);
         }
 
-        // DELETE: api/desks/5
+        // DELETE: api/Desks/5
         [HttpDelete("{id}")]
         [Authorize]
+        [Produces("application/json")]
         public async Task<IActionResult> DeleteDesk(int id)
         {
             var desk = await _context.Desks.FindAsync(id);

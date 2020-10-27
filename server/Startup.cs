@@ -22,6 +22,17 @@ namespace server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins", builder =>
+                    builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials()
+                );
+            });
+
             services.AddControllers().AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.ContractResolver = new PatchRequestContractResolver();
@@ -108,6 +119,8 @@ namespace server
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseCors("AllowAllOrigins");
 
             app.UseEndpoints(endpoints =>
             {

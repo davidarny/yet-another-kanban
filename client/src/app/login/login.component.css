@@ -1,0 +1,23 @@
+.legend::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  height: 1px;
+  width: 50px;
+  background-color: #e2e8f0;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.legend::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  height: 1px;
+  width: 50px;
+  background-color: #e2e8f0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}

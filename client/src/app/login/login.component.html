@@ -1,0 +1,24 @@
+<div class="container mx-auto flex justify-center items-center h-full">
+  <form [formGroup]="form" class="border border-solid rounded px-10 py-5">
+    <fieldset class="flex flex-col">
+      <legend class="w-full text-center text-2xl mb-8 legend relative">Login to YAK</legend>
+      <mat-form-field class="w-64 mb-2">
+        <mat-label>Username:</mat-label>
+        <input matInput name="username" formControlName="username" autocomplete="off" autofocus tabindex="1" />
+        <mat-error *ngIf="form.controls.username.touched && form.controls.username.invalid">
+          <span *ngIf="form.controls.username.errors.required">This field is mandatory.</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="w-64">
+        <mat-label>Password:</mat-label>
+        <input matInput name="password" formControlName="password" type="password" autocomplete="off" tabindex="2" />
+        <mat-error *ngIf="form.controls.password.touched && form.controls.password.invalid">
+          <span *ngIf="form.controls.password.errors.required">This field is mandatory.</span>
+        </mat-error>
+      </mat-form-field>
+    </fieldset>
+    <div class="w-full flex justify-end mt-6">
+      <button tabindex="3" mat-raised-button color="primary" (click)="login()">Login</button>
+    </div>
+  </form>
+</div>

@@ -14,6 +14,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { environment } from 'src/environments/environment';
 import { BaseUrlInterceptor } from './base-url.interceptor';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { HttpErrorInterceptor } from './http-error.interceptor';
+import { ToastrModule } from 'ngx-toastr';
 
 const MATERIAL_COMPONENTS = [MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule];
 
@@ -26,6 +28,7 @@ const MATERIAL_COMPONENTS = [MatButtonModule, MatFormFieldModule, MatInputModule
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [
     {
@@ -36,6 +39,11 @@ const MATERIAL_COMPONENTS = [MatButtonModule, MatFormFieldModule, MatInputModule
     {
       provide: HTTP_INTERCEPTORS,
       useClass: BaseUrlInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
       multi: true,
     },
     {

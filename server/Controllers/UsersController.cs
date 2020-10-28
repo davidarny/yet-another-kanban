@@ -11,6 +11,7 @@ using server.Models;
 using server.DTO;
 using server.ViewModels;
 using System.Linq;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace server.Controllers
 {
@@ -28,13 +29,14 @@ namespace server.Controllers
         // POST /api/Users/token
         [HttpPost("token")]
         [Produces("application/json")]
-        public async Task<ActionResult<UserAccessView>> Token(CreateTokenDTO dto)
+        [SwaggerResponse(400, "Invalid username or password", typeof(ErrorViewModel))]
+        public async Task<ActionResult<UserAccessViewModel>> Token(CreateTokenDTO dto)
         {
             var (user, identity) = (await GetIdentity(dto.Username, dto.Password)).GetValueOrDefault();
 
             if (identity == null)
             {
-                return BadRequest(new { errorText = "Invalid username or password." });
+                return BadRequest(new ErrorViewModel { ErrorText = "Invalid username or password" });
             }
 
             var now = DateTime.UtcNow;
@@ -50,7 +52,7 @@ namespace server.Controllers
 
             var encoded = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-            return new UserAccessView
+            return new UserAccessViewModel
             {
                 AccessToken = encoded,
                 Username = identity.Name,
@@ -130,8 +132,14 @@ namespace server.Controllers
         // POST: api/Users/register
         [HttpPost("register")]
         [Produces("application/json")]
-        public async Task<ActionResult<UserAccessView>> PostUser([FromBody] RegisterUserDTO dto)
+        [SwaggerResponse(409, "User already exists", typeof(ErrorViewModel))]
+        public async Task<ActionResult<UserAccessViewModel>> PostUser([FromBody] RegisterUserDTO dto)
         {
+            if (_context.Users.Any(o => o.Login == dto.Username || o.Email == dto.Email))
+            {
+                return Conflict(new ErrorViewModel { ErrorText = "User already exists" });
+            }
+
             var user = new User
             {
                 Email = dto.Email,

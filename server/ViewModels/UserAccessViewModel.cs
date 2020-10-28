@@ -1,6 +1,6 @@
 namespace server.ViewModels
 {
-    public class UserAccessView
+    public class UserAccessViewModel
     {
         public string AccessToken { get; set; }
 

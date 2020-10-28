@@ -9,6 +9,8 @@ namespace server
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Models.UserHasDesk>().HasKey(o => new { o.IdDesk, o.IdUser });
+            builder.Entity<Models.User>().HasIndex(p => new { p.Login }).IsUnique();
+            builder.Entity<Models.User>().HasIndex(p => new { p.Email }).IsUnique();
         }
 
         public DbSet<Models.User> Users { get; set; }

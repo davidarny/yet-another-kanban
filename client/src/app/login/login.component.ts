@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  login() {
+  login(): void {
     const val = this.form.value;
 
     if (val.username && val.password) {

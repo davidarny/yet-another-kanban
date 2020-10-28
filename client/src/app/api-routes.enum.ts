@@ -5,7 +5,7 @@ export enum ApiRoutes {
   Register = '/api/users/register',
 }
 
-interface _ApiBody {
+interface ApiBody {
   [ApiRoutes.CreateToken]: {
     payload: {
       username: string;
@@ -24,4 +24,4 @@ interface _ApiBody {
   };
 }
 
-export type ApiMeta<T extends ApiRoutes> = _ApiBody[T];
+export type ApiMeta<T extends ApiRoutes> = ApiBody[T];

@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class ReflectionUtilsService {
   constructor() {}
 
-  nameof<T>(name: keyof T) {
+  nameof<T>(name: keyof T): keyof T {
     return name;
   }
 }

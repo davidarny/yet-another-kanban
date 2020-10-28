@@ -29,7 +29,6 @@ namespace server
                         .AllowAnyOrigin()
                         .AllowAnyMethod()
                         .AllowAnyHeader()
-                        .AllowCredentials()
                 );
             });
 

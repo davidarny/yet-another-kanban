@@ -1,37 +1,58 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from './user';
+import { UserAccess } from './user-access';
 import { shareReplay, tap } from 'rxjs/operators';
+import { ReflectionUtilsService } from './reflection-utils.service';
+import { ApiRoutes, ApiMeta } from './api-routes.enum';
+
+type LoginApiMeta = ApiMeta<ApiRoutes.CreateToken>;
+type RegisterApiMeta = ApiMeta<ApiRoutes.Register>;
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private reflectionUtils: ReflectionUtilsService) {}
 
   login(username: string, password: string) {
-    return this.http
-      .post<User>('/api/users/token', { username, password })
-      .pipe(
-        tap((res) => this.setSession(res)),
-        shareReplay()
-      );
+    const payload: LoginApiMeta['payload'] = {
+      username,
+      password,
+    };
+
+    return this.http.post<LoginApiMeta['response']>(ApiRoutes.CreateToken, payload).pipe(
+      tap((res) => this.setSession(res)),
+      shareReplay()
+    );
   }
 
-  private setSession(user: User) {
-    localStorage.setItem('access_token', user.access_token);
-    localStorage.setItem('id_user', user.id_user);
-    localStorage.setItem('username', user.username);
+  private setSession(user: UserAccess) {
+    localStorage.setItem(this.reflectionUtils.nameof<UserAccess>('accessToken'), user.accessToken);
+    localStorage.setItem(this.reflectionUtils.nameof<UserAccess>('userId'), user.userId);
+    localStorage.setItem(this.reflectionUtils.nameof<UserAccess>('username'), user.username);
+  }
+
+  register(username: string, email: string, password: string) {
+    const payload: RegisterApiMeta['payload'] = {
+      username,
+      email,
+      password,
+    };
+
+    return this.http.post<RegisterApiMeta['response']>(ApiRoutes.Register, payload).pipe(
+      tap((res) => this.setSession(res)),
+      shareReplay()
+    );
   }
 
   isAuthenticated() {
-    const token = localStorage.getItem('access_token');
+    const token = localStorage.getItem(this.reflectionUtils.nameof<UserAccess>('accessToken'));
     return !!token;
   }
 
   logout() {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('id_user');
-    localStorage.removeItem('username');
+    localStorage.removeItem(this.reflectionUtils.nameof<UserAccess>('accessToken'));
+    localStorage.removeItem(this.reflectionUtils.nameof<UserAccess>('userId'));
+    localStorage.removeItem(this.reflectionUtils.nameof<UserAccess>('username'));
   }
 }

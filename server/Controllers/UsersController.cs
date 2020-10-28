@@ -28,7 +28,7 @@ namespace server.Controllers
         // POST /api/Users/token
         [HttpPost("token")]
         [Produces("application/json")]
-        public async Task<ActionResult<object>> Token(CreateTokenDTO dto)
+        public async Task<ActionResult<UserAccessView>> Token(CreateTokenDTO dto)
         {
             var (user, identity) = (await GetIdentity(dto.Username, dto.Password)).GetValueOrDefault();
 
@@ -38,6 +38,7 @@ namespace server.Controllers
             }
 
             var now = DateTime.UtcNow;
+
             // создаем JWT-токен
             var jwt = new JwtSecurityToken(
                     issuer: AuthOptions.ISSUER,
@@ -46,19 +47,18 @@ namespace server.Controllers
                     claims: identity.Claims,
                     expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
                     signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-            var response = new
+            var encoded = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+            return new UserAccessView
             {
-                access_token = encodedJwt,
-                username = identity.Name,
-                user_id = user.Id,
-            };
-
-            return response;
+                AccessToken = encoded,
+                Username = identity.Name,
+                UserId = user.Id,
+            }; ;
         }
 
-        private async Task<Nullable<ValueTuple<User, ClaimsIdentity>>> GetIdentity(string username, string password)
+        private async Task<ValueTuple<User, ClaimsIdentity>?> GetIdentity(string username, string password)
         {
             var person = await _context.Users.Where(x => x.Login == username && x.Password == password).FirstOrDefaultAsync();
             if (person != null)
@@ -100,7 +100,11 @@ namespace server.Controllers
                 return NotFound();
             }
 
-            return new UserViewModel { Id = user.Id, Email = user.Email, Login = user.Login };
+            return new UserViewModel {
+                Id = user.Id,
+                Email = user.Email,
+                Login = user.Login
+            };
         }
 
         // PUT api/Users/:id
@@ -126,12 +130,19 @@ namespace server.Controllers
         // POST: api/Users/register
         [HttpPost("register")]
         [Produces("application/json")]
-        public async Task<ActionResult<UserViewModel>> PostUser([FromBody] User user)
+        public async Task<ActionResult<UserAccessView>> PostUser([FromBody] RegisterUserDTO dto)
         {
+            var user = new User
+            {
+                Email = dto.Email,
+                Login = dto.Username,
+                Password = dto.Password
+            };
+
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
+            return CreatedAtAction(nameof(Token), new { Username = user.Login, user.Password }, user);
         }
 
 

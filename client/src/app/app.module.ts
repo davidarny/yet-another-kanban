@@ -10,13 +10,15 @@ import { AuthInterceptor } from './auth.interceptor';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import { environment } from 'src/environments/environment';
 import { BaseUrlInterceptor } from './base-url.interceptor';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
-const MATERIAL_COMPONENTS = [MatButtonModule, MatFormFieldModule, MatInputModule];
+const MATERIAL_COMPONENTS = [MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule];
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent],
+  declarations: [AppComponent, LoginComponent, SignUpComponent],
   imports: [
     ...MATERIAL_COMPONENTS,
     BrowserAnimationsModule,

@@ -1,11 +1,11 @@
 import { browser, by, element } from 'protractor';
 
 export class AppPage {
-  navigateTo(): Promise<unknown> {
+  navigateToBaseUrl(): Promise<unknown> {
     return browser.get(browser.baseUrl) as Promise<unknown>;
   }
 
-  getTitleText(): Promise<string> {
-    return element(by.css('app-root .content span')).getText() as Promise<string>;
+  getLoginLegendText(): Promise<string> {
+    return element(by.xpath('/html/body/app-root/app-login/div/form/fieldset/legend')).getText() as Promise<string>;
   }
 }

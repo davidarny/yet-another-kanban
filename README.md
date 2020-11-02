@@ -16,6 +16,9 @@
   </p>
 </p>
 
+![Node.js CI](https://github.com/DavidArutiunian/yet-another-kanban/workflows/Node.js%20CI/badge.svg)
+![.NET Core](https://github.com/DavidArutiunian/yet-another-kanban/workflows/.NET%20Core/badge.svg)
+
 [![diagram](docs/diagram.png)](docs/diagram.png)
 
 ## Swagger

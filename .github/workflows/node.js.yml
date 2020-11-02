@@ -6,11 +6,11 @@ name: Node.js CI
 on:
   push:
     branches: [ master ]
-    paths: 
+    paths:
       - 'client/**'
   pull_request:
     branches: [ master ]
-    paths: 
+    paths:
       - 'client/**'
 
 jobs:
@@ -36,8 +36,3 @@ jobs:
       run: |
         yarn lint
         yarn build:prod
-    - name: Test
-      working-directory: ./client
-      run: |
-        yarn test
-        yarn e2e

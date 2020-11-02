@@ -30,10 +30,11 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Build
       working-directory: ./client
-    - run: yarn --frozen-lockfile
-    - run: yarn lint
-    - run: yarn build:prod
+      run: |
+        yarn lint
+        yarn build:prod
     - name: Test
       working-directory: ./client
-    - run: yarn test
-    - run: yarn e2e
+      run: |
+        yarn test
+        yarn e2e

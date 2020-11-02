@@ -1,4 +1,4 @@
-import { UserAccess } from './user-access';
+import { UserAccess } from '../models/user-access';
 
 export enum ApiRoutes {
   CreateToken = '/api/users/token',

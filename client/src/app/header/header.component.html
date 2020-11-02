@@ -1,0 +1,8 @@
+<mat-toolbar color="primary" *ngIf="logged$ | async">
+  <button mat-icon-button class="mr-4">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Yet Another Kanban</span>
+  <div class="flex-auto"></div>
+  <button mat-raised-button (click)="onLogout()">Logout</button>
+</mat-toolbar>

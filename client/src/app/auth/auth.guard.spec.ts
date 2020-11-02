@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from '../router/app-routing.module';
 
 import { AuthGuard } from './auth.guard';
 

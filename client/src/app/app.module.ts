@@ -12,17 +12,30 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { environment } from 'src/environments/environment';
 import { BaseUrlInterceptor } from './interceptors/base-url.interceptor';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 import { ToastrModule } from 'ngx-toastr';
 import { HeaderComponent } from './header/header.component';
+import { DashboardComponent } from './layouts/dashboard/dashboard.component';
+import { KanbanComponent } from './blocks/kanban/kanban.component';
 
-const MATERIAL_COMPONENTS = [MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatToolbarModule];
+const MATERIAL_COMPONENTS = [
+  MatButtonModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatIconModule,
+  MatToolbarModule,
+  MatCardModule,
+  DragDropModule,
+];
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, SignUpComponent, HeaderComponent],
+  declarations: [AppComponent, LoginComponent, SignUpComponent, HeaderComponent, DashboardComponent, KanbanComponent],
   imports: [
     ...MATERIAL_COMPONENTS,
     BrowserAnimationsModule,
@@ -31,6 +44,7 @@ const MATERIAL_COMPONENTS = [MatButtonModule, MatFormFieldModule, MatInputModule
     HttpClientModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
+    NgScrollbarModule,
   ],
   providers: [
     {

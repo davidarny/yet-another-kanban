@@ -6,6 +6,6 @@ export class AppPage {
   }
 
   getLoginLegendText(): Promise<string> {
-    return element(by.xpath('/html/body/app-root/app-login/div/form/fieldset/legend')).getText() as Promise<string>;
+    return element(by.xpath('/html/body/app-root/app-login/div/mat-card/form/fieldset/legend')).getText() as Promise<string>;
   }
 }

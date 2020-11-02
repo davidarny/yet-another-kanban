@@ -1,0 +1,35 @@
+<div cdkDropListGroup class="h-full">
+  <div class="kanban-column h-full">
+    <div class="kanban-column-header">
+      <span [title]="todo.length" class="kanban-todos-badge mr-2">{{ todo.length }}</span>
+      <span class="kanban-column-label">To do</span>
+    </div>
+
+    <ng-scrollbar class="h-full">
+      <div scrollViewport cdkDropList [cdkDropListData]="todo" class="kanban-list" (cdkDropListDropped)="drop($event)">
+        <div class="kanban-box" *ngFor="let item of todo" cdkDrag>
+          <div class="kanban-custom-placeholder" *cdkDragPlaceholder></div>
+          <mat-icon class="kanban-note-icon" fontSet="material-icons-outlined">note</mat-icon>
+          {{ item }}
+        </div>
+      </div>
+    </ng-scrollbar>
+  </div>
+
+  <div class="kanban-column h-full">
+    <div class="kanban-column-header">
+      <span [title]="done.length" class="kanban-todos-badge mr-2">{{ done.length }}</span>
+      <span class="kanban-column-label">Done</span>
+    </div>
+
+    <ng-scrollbar class="h-full">
+      <div scrollViewport cdkDropList [cdkDropListData]="done" class="kanban-list" (cdkDropListDropped)="drop($event)">
+        <div class="kanban-box" *ngFor="let item of done" cdkDrag>
+          <div class="kanban-custom-placeholder" *cdkDragPlaceholder></div>
+          <mat-icon class="kanban-note-icon" fontSet="material-icons-outlined">note</mat-icon>
+          {{ item }}
+        </div>
+      </div>
+    </ng-scrollbar>
+  </div>
+</div>

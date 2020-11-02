@@ -1,32 +1,34 @@
 <div class="container mx-auto flex justify-center items-center h-full">
-  <form [formGroup]="form" class="border border-solid rounded px-10 py-5">
-    <fieldset class="flex flex-col">
-      <legend class="w-full text-center text-2xl mb-8 legend relative">Login to YAK</legend>
-      <mat-form-field class="w-full mb-2">
-        <mat-label>Username:</mat-label>
-        <input matInput name="username" formControlName="username" autocomplete="off" autofocus tabindex="1" />
-        <mat-error *ngIf="form.controls.username.touched && form.controls.username.invalid">
-          <span *ngIf="form.controls.username.errors.required">This field is mandatory.</span>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="w-full">
-        <mat-label>Password:</mat-label>
-        <input matInput name="password" formControlName="password" type="password" autocomplete="off" tabindex="2" />
-        <mat-error *ngIf="form.controls.password.touched && form.controls.password.invalid">
-          <span *ngIf="form.controls.password.errors.required">This field is mandatory.</span>
-        </mat-error>
-      </mat-form-field>
-    </fieldset>
-    <div class="w-full flex justify-between mt-6">
-      <button tabindex="4" mat-raised-button color="secondary" routerLink="/sign">
-        <mat-icon>person_add</mat-icon>
-        Sign Up
-      </button>
-      <div class="w-32"></div>
-      <button tabindex="3" mat-raised-button color="primary" (click)="login()">
-        Login
-        <mat-icon>login</mat-icon>
-      </button>
-    </div>
-  </form>
+  <mat-card class="px-16 py-10">
+    <form [formGroup]="form">
+      <fieldset class="flex flex-col">
+        <legend class="w-full text-center text-2xl mb-8 legend relative">Login to YAK</legend>
+        <mat-form-field class="w-full mb-2">
+          <mat-label>Username:</mat-label>
+          <input matInput name="username" formControlName="username" autocomplete="off" autofocus tabindex="1" />
+          <mat-error *ngIf="form.controls.username.touched && form.controls.username.invalid">
+            <span *ngIf="form.controls.username.errors.required">This field is mandatory.</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="w-full">
+          <mat-label>Password:</mat-label>
+          <input matInput name="password" formControlName="password" type="password" autocomplete="off" tabindex="2" />
+          <mat-error *ngIf="form.controls.password.touched && form.controls.password.invalid">
+            <span *ngIf="form.controls.password.errors.required">This field is mandatory.</span>
+          </mat-error>
+        </mat-form-field>
+      </fieldset>
+      <div class="w-full flex justify-between mt-6">
+        <button tabindex="4" mat-raised-button color="secondary" routerLink="/sign">
+          <mat-icon>person_add</mat-icon>
+          Sign Up
+        </button>
+        <div class="w-32"></div>
+        <button tabindex="3" mat-raised-button color="primary" (click)="login()">
+          Login
+          <mat-icon>login</mat-icon>
+        </button>
+      </div>
+    </form>
+  </mat-card>
 </div>

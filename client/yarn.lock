@@ -1163,6 +1163,11 @@
     merge-source-map "^1.1.0"
     schema-utils "^2.7.0"
 
+"@juggle/resize-observer@*":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@juggle/resize-observer/-/resize-observer-3.2.0.tgz#5e0b448d27fe3091bae6216456512c5904d05661"
+  integrity sha512-fsLxt0CHx2HCV9EL8lDoVkwHffsA0snUpddYjdLyXcG5E41xaamn9ZyQqOE9TUJdrRlH8/hjIf+UdOdDeKCUgg==
+
 "@ngtools/webpack@10.2.0":
   version "10.2.0"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-10.2.0.tgz#42a9aba997a69effedd7cba75d0c69756f1b7fc4"
@@ -1942,6 +1947,11 @@ better-assert@~1.0.0:
   integrity sha1-QIZrnhueC1W0gYlDEeaPr/rrxSI=
   dependencies:
     callsite "1.0.0"
+
+bezier-easing@*:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/bezier-easing/-/bezier-easing-2.1.0.tgz#c04dfe8b926d6ecaca1813d69ff179b7c2025d86"
+  integrity sha1-wE3+i5JtbsrKGBPWn/F5t8ICXYY=
 
 big.js@^5.2.2:
   version "5.2.2"
@@ -5883,6 +5893,15 @@ ngx-build-plus@latest:
     rxjs "6.4.0"
     webpack-dev-server "^3.1.14"
     webpack-merge "^4.2.1"
+
+ngx-scrollbar@^7.3.0:
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/ngx-scrollbar/-/ngx-scrollbar-7.3.0.tgz#248146a91c3ed28de660908bf6716052a315b99a"
+  integrity sha512-rLRRnaFNZv8HE8AOnzfpLrKgOBrt6uLLrP7hRqF5umi1v+ttCCiSS5fGn/+2OBhUGsXCLDCBB0S2UlUZ5TTZeg==
+  dependencies:
+    "@juggle/resize-observer" "*"
+    bezier-easing "*"
+    tslib "^2.0.0"
 
 ngx-tailwind@^0.5.1:
   version "0.5.1"

@@ -13,15 +13,15 @@ type RegisterApiMeta = ApiMeta<ApiRoutes.Register>;
   providedIn: 'root',
 })
 export class AuthService {
-  private _logged$ = new BehaviorSubject<boolean>(false);
+  private logged$ = new BehaviorSubject<boolean>(false);
 
-  get logged$(): Observable<boolean> {
-    return this._logged$.asObservable();
+  get loggedIn$(): Observable<boolean> {
+    return this.logged$.asObservable();
   }
 
   constructor(private http: HttpClient, private reflectionUtils: ReflectionUtilsService) {
     if (this.isLoggedIn()) {
-      this._logged$.next(true);
+      this.logged$.next(true);
     }
   }
 
@@ -33,7 +33,7 @@ export class AuthService {
 
     return this.http.post<LoginApiMeta['response']>(ApiRoutes.CreateToken, payload).pipe(
       tap((res) => this.setSession(res)),
-      tap(() => this._logged$.next(true)),
+      tap(() => this.logged$.next(true)),
       shareReplay()
     );
   }
@@ -75,6 +75,6 @@ export class AuthService {
     localStorage.removeItem(this.reflectionUtils.nameof<UserAccess>('userId'));
     localStorage.removeItem(this.reflectionUtils.nameof<UserAccess>('username'));
 
-    this._logged$.next(false);
+    this.logged$.next(false);
   }
 }

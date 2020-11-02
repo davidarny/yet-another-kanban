@@ -9,18 +9,18 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  logged$: Observable<boolean>;
+  loggedIn$: Observable<boolean>;
 
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.logged$ = this.authService.logged$;
+    this.loggedIn$ = this.authService.loggedIn$;
   }
 
   onLogout(): void {
     this.authService.logout();
 
-    this.logged$.subscribe((logged) => {
+    this.loggedIn$.subscribe((logged) => {
       if (!logged) {
         this.router.navigateByUrl('/login');
       }

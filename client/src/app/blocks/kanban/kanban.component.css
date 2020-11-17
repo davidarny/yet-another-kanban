@@ -6,6 +6,7 @@
   vertical-align: top;
   background-color: #fafbfc;
   padding: 8px;
+  padding-right: 0;
   border: solid thin #e1e4e8;
   border-radius: 6px;
 }
@@ -19,6 +20,11 @@
 .kanban-column-header {
   display: flex;
   align-items: center;
+  margin-bottom: 8px;
+}
+
+.kanban-column-scrollable {
+  height: calc(100% - 30px);
 }
 
 .kanban-todos-badge {
@@ -42,6 +48,7 @@
   padding: 8px;
   padding-left: 32px;
   margin: 8px 0;
+  margin-right: 12px;
   border-radius: 6px;
   border: solid thin #e1e4e8;
   display: flex;
@@ -72,6 +79,7 @@
   min-height: 60px;
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
   border-radius: 6px;
+  margin-right: 12px;
 }
 
 .kanban-note-icon {

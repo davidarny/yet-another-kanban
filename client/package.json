@@ -8,8 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:prod": "NODE_ENV=production ng build --prod",
-    "pretty": "prettier --write src"
+    "build:prod": "cross-env NODE_ENV=production ng build --prod",
+    "format": "prettier --write src"
   },
   "private": true,
   "dependencies": {
@@ -37,6 +37,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^14.14.5",
     "codelyzer": "^6.0.0",
+    "cross-env": "^7.0.2",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~5.2.3",

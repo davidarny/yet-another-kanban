@@ -150,7 +150,14 @@ namespace server.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(Token), new { Username = user.Login, user.Password }, user);
+            var view = new UserViewModel
+            {
+                Email = user.Email,
+                Id = user.Id,
+                Login = user.Login
+            };
+
+            return CreatedAtAction(nameof(Token), new { Username = user.Login, user.Password }, view);
         }
 
 

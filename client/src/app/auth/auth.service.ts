@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserAccess } from '../models/user-access';
-import { shareReplay, tap } from 'rxjs/operators';
+import { mergeMap, shareReplay, tap } from 'rxjs/operators';
 import { ReflectionUtilsService } from '../utils/reflection/reflection-utils.service';
 import { ApiRoutes, ApiMeta } from '../router/api-routes.enum';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -51,10 +51,9 @@ export class AuthService {
       password,
     };
 
-    return this.http.post<RegisterApiMeta['response']>(ApiRoutes.Register, payload).pipe(
-      tap((res) => this.setSession(res)),
-      shareReplay()
-    );
+    return this.http
+      .post<RegisterApiMeta['response']>(ApiRoutes.Register, payload)
+      .pipe(mergeMap(() => this.login(username, password)));
   }
 
   isAuthenticated(): boolean {
